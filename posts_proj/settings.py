@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'posts',
     'profiles',
 # Third - party apps 
-    'crispy-forms',
+    'crispy_forms',
     
 ]
 
