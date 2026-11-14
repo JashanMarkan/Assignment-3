@@ -30,27 +30,30 @@ const likeUnlikePost = () => {
         e.preventDefault()
         const clickedId = e.target.getAttribute('data-form-id')
         const clickedBtn = document.getElementById(`like-Unlike-${clickedId}`)
+    
+
+   $.ajax({
+
+            type: 'POST',
+            url: '/like-unlike/',
+            data: {
+
+                'csrfmiddlewaretoken': csrftoken,
+                'pk': clickedId
+
+            },
+            success: function(response){
+                console.log(response)
+                clickedBtn.textContent = response.liked ? `Unlike (${response.count})` : `Like (${response.count})`
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+
     }))
-
-    $.ajax({
-
-        type: 'POST',
-        url: '/like-unlike/',
-        data: {
-
-            'csrfmiddlewaretoken': csrftoken,
-            'pk': clickedId
-
-        },
-        success: function(response){
-            console.log(response)
-        },
-        error: function(error){
-            console.log(error)
-        }
-    })
-
 }
+
 
 let visible = 3
 
@@ -76,18 +79,21 @@ const getData = () => {
                             <p class="card-text">${el.body}</p>
                         </div>
                         <div class = "card-footer">
-                            <div class = "col-1">
+                            <div class = "row">
+                                <div class = "col-2">
                                     <a href="#" class="btn btn-primary">Details</a>
                                 </div>
-                                <div class = "col-1">
+                                <div class = "col-2">
                                     <form class = "like-unlike-forms" data-form-id = "${el.id}">
                                         <button href="#" class="btn btn-primary" id = "like-Unlike-${el.id}">${el.liked ? `Unlike (${el.count})` : `Like(${el.count})`}</button>
                                     </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     `
                 });
+                likeUnlikePost()
 
             }, 100)
 
