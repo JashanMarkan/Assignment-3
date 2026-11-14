@@ -5,7 +5,9 @@ from .views import (
     load_post_data_view,
     like_unlike_post,
     post_detail_view,
-    post_detail_data_view
+    post_detail_data_view,
+    delete_post,
+    update_post,
     
     
 )
@@ -18,6 +20,8 @@ urlpatterns = [
     path('like-unlike/', like_unlike_post, name = 'like-unlike'),
     path('data/<int:num_posts>/', load_post_data_view, name = 'post-data'),
     path('<pk>/', post_detail_view, name = 'post-detail'),
+    path('<pk>/update/', update_post, name = 'post-update'),
+    path('<pk>/delete/', delete_post, name = 'post-delete'),
     path('<pk>/data/', post_detail_data_view, name= 'post-detail-data'),
 
 
