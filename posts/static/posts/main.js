@@ -9,6 +9,8 @@ const postForm = document.getElementById('post-form');
 const title = document.getElementById('id_title');
 const body = document.getElementById('id_body');
 const csrf = document.getElementsByName('csrfmiddlewaretoken');
+
+const alertBox = document.getElementById('alert-box');
 console.log('csrf', csrf[0].value)
 
 const getCookie = (name) => {
@@ -27,6 +29,17 @@ const getCookie = (name) => {
     return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
+
+const handleAlert = (type, msg) => {
+    alertBox.innerHTML = `
+        <div class="alert alert-${type}" role="alert">
+            ${msg}
+        </div>
+    `
+    setTimeout(() => {
+        alertBox.innerHTML = ''
+    }, 3000)
+}
 
 const likeUnlikePost = () => {
 
@@ -48,13 +61,37 @@ const likeUnlikePost = () => {
                 'pk': clickedId
 
             },
-            success: function(response){
-                console.log(response)
-                clickedBtn.textContent = response.liked ? `Unlike (${response.count})` : `Like (${response.count})`
-            },
-            error: function(error){
-                console.log(error)
-            }
+                    success: function(response){
+            console.log(response)
+            postsBox.insertAdjacentHTML('afterbegin', `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">${response.title}</h5>
+                        <p class="card-text">${response.body}</p>
+                    </div>
+                    <div class = "card-footer">
+                        <div class = "row">
+                            <div class = "col-2">
+                                <a href="#" class="btn btn-primary">Details</a>
+                            </div>
+                            <div class = "col-2">
+                                <form class = "like-unlike-forms" data-form-id = "${response.id}">
+                                    <button href="#" class="btn btn-primary" id = "like-Unlike-${response.id}">Like (0)</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `)
+            likeUnlikePost()
+            $('#addPostModal').modal('hide')
+            handleAlert('success', 'New post added!')
+            postForm.reset()
+        },
+        error: function(error){
+            console.log(error)
+            handleAlert('danger', 'ups... something went wrong')
+        }
         })
 
     }))
@@ -157,5 +194,7 @@ postForm.addEventListener('submit', e => {
     })
 
 })
+
+
 
 getData()
