@@ -25,7 +25,27 @@ def post_list_and_create(request):
     }
     return render(request, 'posts/main.html', context)
 
+def post_detail_view(request, pk):
+    obj = Post.objects.get(pk=pk)
+    form = PostForm(request.POST or None)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        if form.is_valid():
+            obj.title = form.cleaned_data.get('title')
+            obj.body = form.cleaned_data.get('body')
+            obj.save()
+            return JsonResponse({
+                'id': obj.id,
+                'title': obj.title,
+                'body': obj.body,
+                'author': obj.author.user.username,
+            })
+    context = {
+        'obj': obj,
+        'form': form,
+    }
+    return render(request, 'posts/detail.html', context)
 
+    
 def load_post_data_view(request, num_posts):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         visible = 3

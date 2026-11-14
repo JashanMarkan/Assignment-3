@@ -4,6 +4,7 @@ from .views import (
     post_list_and_create,
     load_post_data_view,
     like_unlike_post,
+    post_detail_view,
 
     hello_world_view
 )
@@ -15,6 +16,6 @@ urlpatterns = [
     path('',post_list_and_create, name= 'main-board'),
     path('like-unlike/', like_unlike_post, name = 'like-unlike'),
     path('data/<int:num_posts>/', load_post_data_view, name = 'post-data'),
-    path('hello-world/',hello_world_view,name='hello-world'),
+    path('<pk>/', post_detail_view, name = 'post-detail'),
 
 ]
