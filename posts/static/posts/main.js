@@ -32,16 +32,6 @@ const getCookie = (name) => {
 }
 const csrftoken = getCookie('csrftoken');
 
-const handleAlert = (type, msg) => {
-    alertBox.innerHTML = `
-        <div class="alert alert-${type}" role="alert">
-            ${msg}
-        </div>
-    `
-    setTimeout(() => {
-        alertBox.innerHTML = ''
-    }, 3000)
-}
 
 const likeUnlikePost = () => {
 

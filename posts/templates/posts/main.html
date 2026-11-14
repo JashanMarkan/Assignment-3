@@ -17,7 +17,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                    </div>
                     <div class="modal-body">
                     <form id="post-form" method="POST">
                     {% csrf_token %}
@@ -32,6 +32,8 @@
             </div>
         </div>
     </div>    
+    <div id = "alert-box"></div>
+
     <!-- Button trigger modal-->
     <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#addPostModal">
         
@@ -42,7 +44,7 @@
     <div id = "spinner-box" class="text-center">
         <div class="spinner-border" role="status"></div>
     </div>
-    <div class ="text-center mb -3" id="end-box">
+    <div class ="text-center mb-3" id="end-box">
 
         <button class = "btn btn-primary" id="load-btn">Load more</button>
     </div>
