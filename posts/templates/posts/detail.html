@@ -68,7 +68,7 @@
 
                 {%for p in obj.get_photos%}
 
-                    <div class="carousel-item {%if forloop.counter == 1 %}active{%endif%}">
+                    <div class="carousel-item {%if forloop.counter == 1 %}active{% endif %}">
                         <img src="{{ p.image.url }}" class="d-block w-100" alt="photo {{obj.pk}}">
                     </div>
 

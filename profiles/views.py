@@ -10,9 +10,7 @@ def my_profile_view(request):
     form = ProfileForm(request.POST or None, request.FILES or None, instance=obj)
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
+            instance = form.save()
             return JsonResponse({
                 'bio': instance.bio,
                 'avatar': instance.avatar.url,
