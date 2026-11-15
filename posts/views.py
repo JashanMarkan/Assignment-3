@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post,Photo
+from .models import Post , Photo
 from django.http import JsonResponse , HttpResponse
 from .forms import PostForm
 from profiles.models import Profile
@@ -71,7 +71,7 @@ def load_post_data_view(request, num_posts):
             }
             data.append(item)
         return JsonResponse({'data': data[lower:upper], 'size':size})
-        return redirect('posts:main-board')
+    return redirect('posts:main-board')
 
 @login_required
 def post_detail_data_view(request, pk) :
@@ -88,7 +88,7 @@ def post_detail_data_view(request, pk) :
 
 @login_required
 def like_unlike_post(request):
-     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         pk = request.POST.get('pk')
         obj = Post.objects.get(pk=pk)
         if request.user in obj.likes.all():
@@ -99,7 +99,7 @@ def like_unlike_post(request):
             obj.likes.add(request.user)
     
         return JsonResponse({'liked': liked, 'count': obj.like_count})
-        return redirect('posts:main-board')
+    return redirect('posts:main-board')
 
 @login_required
 @action_permission
@@ -111,7 +111,7 @@ def update_post(request, pk):
         obj.title = new_title
         obj.body = new_body
         obj.save()
-    return JsonResponse({'title': new_title, 'body': new_body})
+        return JsonResponse({'title': new_title, 'body': new_body})
     return redirect('posts:main-board')        
 
 @login_required
@@ -122,9 +122,9 @@ def delete_post(request, pk):
         obj.delete()
         return JsonResponse({'msg':'some message'})
     return redirect('posts:main-board')
-@login_required
+
 def image_upload_view(request) :
-    # print(request.FILES)
+    print(request.FILES)
     if request.method == 'POST':
         img = request. FILES.get('file')
         new_post_id = request.POST.get('new_post_id')
