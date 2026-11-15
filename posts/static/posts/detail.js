@@ -15,9 +15,9 @@ const deleteForm = document.getElementById('delete-form');
 const titleInput = document.getElementById('id_title');
 const bodyInput = document.getElementById('id_body');
 
-backBtn.addEventListener('click', () => {
-    history.back()
-})
+//backBtn.addEventListener('click', () => {
+  //  history.back()
+//})
 
 
 $.ajax({
@@ -40,6 +40,7 @@ $.ajax({
 
         const titleEl = document.createElement('h3')
         titleEl.setAttribute('class', 'mt-3')
+        titleEl.setAttribute('id', 'title')
         const bodyEl = document.createElement('p')
         bodyEl.setAttribute('class', 'mt-1')
         bodyEl.setAttribute('id', 'body')

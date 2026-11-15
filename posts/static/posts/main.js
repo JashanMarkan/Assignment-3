@@ -146,6 +146,7 @@ loadBtn.addEventListener('click', () => {
 
 })
 
+let newPostId = null
 postForm.addEventListener('submit', e => {
 
     e.preventDefault()
@@ -161,6 +162,7 @@ postForm.addEventListener('submit', e => {
         },
         success: function(response){
             console.log(response)
+            newPostId = response.id
         postsBox.insertAdjacentHTML('afterbegin', `
             <div class="card mb-2">
                 <div class="card-body">
@@ -170,7 +172,7 @@ postForm.addEventListener('submit', e => {
                 <div class = "card-footer">
                     <div class = "row">
                         <div class = "col-2">
-                                <a href="#" class="btn btn-primary">Details</a>
+                            <a href="${url}${response.id}" class="btn btn-primary">Details</a>
                         </div>
                         <div class = "col-2">
                             <form class = "like-unlike-forms" data-form-id = "${response.id}">
@@ -208,7 +210,27 @@ closeBtns.forEach(btn => btn.addEventListener('click', () => {
     if(!dropzone.classList.contains('not-visible')){
         dropzone.classList.add('not-visible')
     }
+    const myDropzone = Dropzone.forElement("#my-dropzone")
+    myDropzone.removeAllFiles(true)
 
 }))
+
+Dropzone.autoDiscover = false;
+const myDropzone = new Dropzone("#my-dropzone", {
+
+    url: "upload/",
+    init: function() {
+
+        this.on("sending", function(file, xhr, formData) {
+            formData.append('csrfmiddlewaretoken', csrftoken);
+            formData.append('new_post_id', newPostId);
+        })
+
+    },
+    maxFiles: 3,
+    maxFilesize: 4, 
+    acceptedFiles: '.png, .jpg, .jpeg',
+
+})
 
 getData()
