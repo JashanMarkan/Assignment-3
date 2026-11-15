@@ -103,7 +103,7 @@ const getData = () => {
                                 </div>
                                 <div class = "col-2">
                                     <form class = "like-unlike-forms" data-form-id = "${el.id}">
-                                        <button href="#" class="btn btn-primary" id = "like-Unlike-${el.id}">${el.liked ? `Unlike (${el.count})` : `Like(${el.count})`}</button>
+                                        <button class="btn btn-primary" id = "like-Unlike-${el.id}">${el.liked ? `Unlike (${el.count})` : `Like(${el.count})`}</button>
                                     </form>
                                 </div>
                             </div>
@@ -163,12 +163,12 @@ postForm.addEventListener('submit', e => {
         success: function(response){
             console.log(response)
             newPostId = response.id
-        postsBox.insertAdjacentHTML('afterbegin', `
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title">${response.title}</h5>
-                    <p class="card-text">${response.body}</p>
-                </div>
+            postsBox.insertAdjacentHTML('afterbegin', `
+                <div class="card mb-2">
+                   <div class="card-body">
+                       <h5 class="card-title">${response.title}</h5>
+                       <p class="card-text">${response.body}</p>
+                   </div>
                 <div class = "card-footer">
                     <div class = "row">
                         <div class = "col-2">
