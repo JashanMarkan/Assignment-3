@@ -5,5 +5,8 @@
 }
 
 .dz:hover {
-    background-color: aliceblue !important;
+    background-color: rgb(79, 133, 180) !important;
+}
+.not-visible{
+    display: none !important;
 }
